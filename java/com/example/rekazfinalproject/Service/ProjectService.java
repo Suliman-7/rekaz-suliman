@@ -66,16 +66,20 @@ public class ProjectService {
             }
         }
 
-        for (Bid bid : bidRepository.findAll() ) {
-            if (bid.getProject().getId() == id) {
-                bidRepository.delete(bid);
-            }
-        }
 
         Project project = projectRepository.findProjectById(id);
         if (project == null) {
             throw new ApiException("Project not found");
         }
+
+
+        for (Bid bid : bidRepository.findAll() ) {
+            if (bid.getProject().getId() == id) {
+                bidRepository.delete(bid);
+            }
+        }
+        
+        
         projectRepository.delete(project);
     }
 }
